@@ -1,0 +1,29 @@
+[
+  {
+    "id": "forerunner",
+    "name": "Garmin Forerunner 965",
+    "manufacturer": 1,
+    "product": 4315,
+    "serial": 100000002,
+    "firmware": "28.05",
+    "note": "Example only: replace the dummy serial with your device\u2019s numeric FIT serial."
+  },
+  {
+    "id": "edge",
+    "name": "Garmin Edge 530",
+    "manufacturer": 1,
+    "product": 3121,
+    "serial": 100000003,
+    "firmware": "9.75",
+    "note": "Example only: replace the dummy serial with your device\u2019s numeric FIT serial."
+  },
+  {
+    "id": "fenix",
+    "name": "Garmin Fenix 9 Pro 47mm",
+    "manufacturer": 1,
+    "product": 4953,
+    "serial": 100000001,
+    "firmware": "6.38",
+    "note": "Example only: replace the dummy serial with your device\u2019s numeric FIT serial."
+  }
+]

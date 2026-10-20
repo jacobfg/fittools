@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#122c24" />
+    <meta
+      name="description"
+      content="Repair Ultra Run rests and update device identities while preserving your FIT activity data."
+    />
+    <title>Fittools</title>
+  </head>
+  <body>
+    <div class="page">
+      <header>
+        <a class="brand" href="/" aria-label="Fittools home"
+          ><span class="brand-icon" aria-hidden="true">↗</span> FITTOOLS</a
+        ><span class="privacy"
+          ><span class="dot"></span> No files retained</span
+        >
+      </header>
+      <main>
+        <section class="intro">
+          <p class="eyebrow">YOUR ACTIVITY. REFINED.</p>
+          <h1>
+            A better finish<br />for every activity<span class="accent">.</span>
+          </h1>
+          <p class="subtitle">
+            Clean up Ultra Run rests or update your recording device.<br
+              class="desktop"
+            />
+            Keep the details that make the activity yours.
+          </p>
+        </section>
+        <form id="tool-form">
+          <div class="workspace">
+            <section class="panel upload-panel">
+              <div class="section-heading">
+                <span class="step">01</span>
+                <h2>Your activity</h2>
+              </div>
+              <label class="dropzone" id="dropzone" for="fit-file"
+                ><span class="upload-icon" aria-hidden="true">↑</span
+                ><strong id="file-title">Drop your FIT file here</strong
+                ><span id="file-meta">or click to browse · up to 100 MiB</span
+                ><input
+                  id="fit-file"
+                  name="fit_file"
+                  type="file"
+                  accept=".fit,application/octet-stream"
+                  required
+                /><span class="choose">Choose a file</span></label
+              >
+              <p class="small-note">
+                Your original stays untouched. Uploaded files are processed on
+                this server and deleted after the request.
+              </p>
+              <button class="secondary" id="details-button" type="button">
+                Show basic activity details <span aria-hidden="true">↗</span>
+              </button>
+              <div id="details" hidden>
+                <h3>Activity overview</h3>
+                <dl id="details-list" class="details-grid"></dl>
+              </div>
+              <div class="file-tip">
+                <span aria-hidden="true">◎</span>
+                <p>
+                  <strong>Every detail matters.</strong><br />GPS, sensor data,
+                  and private FIT fields are preserved except where your
+                  selected transformation removes rest samples.
+                </p>
+              </div>
+            </section>
+            <section class="panel transformation-panel">
+              <div class="section-heading">
+                <span class="step">02</span>
+                <h2>Make it yours</h2>
+              </div>
+              <fieldset class="actions">
+                <legend class="sr-only">Transformation</legend>
+                <label class="action-card"
+                  ><input
+                    type="radio"
+                    name="action"
+                    value="pauses"
+                    checked
+                  /><span
+                    ><strong>Turn rests into pauses</strong
+                    ><small
+                      >Exclude Ultra Run rest samples and add standard timer
+                      pauses. Keep the wall-clock timeline.</small
+                    ></span
+                  ><span class="card-icon" aria-hidden="true">Ⅱ</span></label
+                >
+                <label class="action-card"
+                  ><input type="radio" name="action" value="continuous" /><span
+                    ><strong>Keep it continuous</strong
+                    ><small
+                      >Remove rest markers and timer controls. Retain samples so
+                      services can calculate moving time.</small
+                    ></span
+                  ><span class="card-icon" aria-hidden="true">∿</span></label
+                >
+                <label class="action-card"
+                  ><input type="radio" name="action" value="identity" /><span
+                    ><strong>Change recording device</strong
+                    ><small
+                      >Update the device identity and optional firmware. Keep
+                      paired sensor identities intact.</small
+                    ></span
+                  ><span class="card-icon" aria-hidden="true">⌚</span></label
+                >
+              </fieldset>
+              <section id="identity-fields" hidden>
+                <div class="identity-heading">
+                  <h3>Replacement device</h3>
+                  <button id="inspect-button" class="text-button" type="button">
+                    Inspect source identity
+                  </button>
+                </div>
+                <p id="source-identity" class="small-note" aria-live="polite">
+                  Source identity is detected automatically.
+                </p>
+                <label class="field"
+                  >Device preset<select id="watch-preset">
+                    <option
+                      value="custom"
+                      data-note="Enter a numeric FIT identity manually."
+                    >
+                      Custom identity
+                    </option>
+                  </select></label
+                >
+                <p id="preset-note" class="small-note">
+                  Enter a numeric FIT identity manually.
+                </p>
+                <p class="small-note">
+                  Firmware changes apply only to the primary recorder. Local
+                  component firmware is preserved.
+                </p>
+                <div class="fields-grid">
+                  <label class="field"
+                    >Manufacturer<input
+                      name="manufacturer"
+                      type="number"
+                      min="0"
+                      max="65534"
+                      inputmode="numeric" /></label
+                  ><label class="field"
+                    >Product<input
+                      name="product"
+                      type="number"
+                      min="0"
+                      max="65534"
+                      inputmode="numeric" /></label
+                  ><label class="field"
+                    >Numeric FIT serial<input
+                      name="serial"
+                      type="number"
+                      min="1"
+                      max="4294967295"
+                      inputmode="numeric" /></label
+                  ><label class="field"
+                    >Firmware <span>(optional)</span
+                    ><input
+                      name="firmware"
+                      type="number"
+                      min="0"
+                      max="655.34"
+                      step="0.01"
+                      placeholder="Keep source version"
+                  /></label>
+                </div>
+              </section>
+              <div class="download-area">
+                <button class="primary" id="transform-button" type="submit">
+                  <span>Transform and download</span
+                  ><span aria-hidden="true">↓</span>
+                </button>
+                <p>A fresh FIT file, ready for your next upload.</p>
+              </div>
+            </section>
+          </div>
+          <p id="status" role="status" aria-live="polite" hidden></p>
+          <p id="error" role="alert" hidden></p>
+        </form>
+      </main>
+      <footer>
+        <span>Fittools</span
+        ><span>Built for the miles that matter.</span>
+      </footer>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

@@ -1,0 +1,40 @@
+name: Test
+on: [push, pull_request]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+      - uses: extractions/setup-just@v4
+        with:
+          just-version: '1.58.0'
+      - run: just build test
+      - run: go vet ./...
+      - run: cd web && npx playwright install --with-deps chromium && npm test
+      - run: just verify-cli
+      - uses: docker/setup-buildx-action@v3
+      - run: docker buildx build --platform linux/amd64,linux/arm64 --output type=oci,dest=/tmp/fit-images.tar .
+      - run: docker buildx build --platform linux/amd64 --load -t fit-smoke .
+      - run: |
+          mkdir -p /tmp/fit-config
+          cp web/device-presets.json /tmp/fit-config/device-presets.json
+          docker run --name fit-smoke -d -p 127.0.0.1:8080:8080 \
+            --mount type=bind,src=/tmp/fit-config,dst=/config,readonly \
+            -e FIT_DEVICE_PRESETS_FILE=/config/device-presets.json fit-smoke
+          for i in $(seq 1 30); do
+            if docker exec fit-smoke /fittools healthcheck; then break; fi
+            sleep 1
+          done
+          EXPECT_PRESET_SERIAL=100000002 just verify-http
+          node --input-type=module -e 'import fs from "node:fs"; const p="/tmp/fit-config/device-presets.json"; const presets=JSON.parse(fs.readFileSync(p)); presets[0].serial=100000009; fs.writeFileSync(p,JSON.stringify(presets));'
+          EXPECT_PRESET_SERIAL=100000009 just verify-http
+      - if: always()
+        run: docker rm -f fit-smoke || true

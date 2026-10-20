@@ -1,0 +1,67 @@
+[
+  {
+    "name": "00-identity",
+    "action": "identity",
+    "source": {
+      "manufacturer": 1,
+      "product": 4953,
+      "serial": 100000001
+    },
+    "target": {
+      "manufacturer": 1,
+      "product": 9999,
+      "serial": 123456789
+    },
+    "firmware": 2805
+  },
+  {
+    "name": "01-identity",
+    "action": "identity",
+    "source": {
+      "manufacturer": 1,
+      "product": 4953,
+      "serial": 100000001
+    },
+    "target": {
+      "manufacturer": 1,
+      "product": 9999,
+      "serial": 123456789
+    },
+    "firmware": 2805
+  },
+  {
+    "name": "02-identity",
+    "action": "identity",
+    "source": {
+      "manufacturer": 1,
+      "product": 9999,
+      "serial": 123456789
+    },
+    "target": {
+      "manufacturer": 1,
+      "product": 4953,
+      "serial": 100000001
+    },
+    "firmware": 638
+  },
+  {
+    "name": "03-continuous",
+    "action": "continuous"
+  },
+  {
+    "name": "04-pauses",
+    "action": "pauses"
+  },
+  {
+    "name": "05-pauses",
+    "action": "pauses"
+  },
+  {
+    "name": "06-pauses",
+    "action": "pauses"
+  },
+  {
+    "name": "07-pauses",
+    "action": "pauses"
+  }
+]

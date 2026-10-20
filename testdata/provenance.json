@@ -1,0 +1,70 @@
+{
+  "reference_sdk": "Garmin Python FIT SDK 21.214.0",
+  "sanitization": "Recorder serial fields in File ID (0) and Device Info (23) replaced with dummy identifiers; FIT checksums repaired. All other record bytes retained. HTTP expectations captured from Flask before sanitization.",
+  "fixtures": {
+    "00-identity.input.bin": {
+      "sha256": "25496ef66dd0745433e3a571eaffdf93e65e5a16777f1160e49bbac21fa69ccb"
+    },
+    "00-identity.output.bin": {
+      "sha256": "9d8b7f4dbe46cc3e3c093ad98c1f7a8d4d1d16ebab7c79c5677e2575fc594e23"
+    },
+    "01-identity.input.bin": {
+      "sha256": "ad0506bf2b63f9886d2fdc332ab19f703f28bfbd4f9366f36e815daf8839b7b3"
+    },
+    "01-identity.output.bin": {
+      "sha256": "0da60eccd09ec21732a6a04be42c73e4e7537bd20a778feb5e84b6afb1c24fa4"
+    },
+    "02-identity.input.bin": {
+      "sha256": "0da60eccd09ec21732a6a04be42c73e4e7537bd20a778feb5e84b6afb1c24fa4"
+    },
+    "02-identity.output.bin": {
+      "sha256": "ad0506bf2b63f9886d2fdc332ab19f703f28bfbd4f9366f36e815daf8839b7b3"
+    },
+    "03-continuous.input.bin": {
+      "sha256": "e8b069aa8bab57bda618eee958a0c8f22531c32f51ea9ab19e9b39d24d486023"
+    },
+    "03-continuous.output.bin": {
+      "sha256": "7f23dd02e027ac90ceebd02804e5534d902067b7e3a328e830a556292626f095"
+    },
+    "04-pauses.input.bin": {
+      "sha256": "2678d7295b02fff0d1a97585a0fa55f00e511a1d7427188754344ec83c170172"
+    },
+    "04-pauses.output.bin": {
+      "sha256": "5a369e0abb673fca48b67380ed694c5d1491eefe1afff1f9d8e924bec76c798e"
+    },
+    "05-pauses.input.bin": {
+      "sha256": "ba8562e3572d9f1792aa17152cbbab4458c3fd55ce568b0bd642818ec9479e70"
+    },
+    "05-pauses.output.bin": {
+      "sha256": "ecf819d65cd9eecedaf791b3aadb1d35d7fe11176877e252c17cbe0eb0e141de"
+    },
+    "06-pauses.input.bin": {
+      "sha256": "b973849bc230cbcd8191b0e845341d324d47838075605f5f878988e82fc798fd"
+    },
+    "06-pauses.output.bin": {
+      "sha256": "226803090fdbf02dbb57e54e2093e1fb671c2ffff1e3e796dfe9c5fcbf753349"
+    },
+    "07-pauses.input.bin": {
+      "sha256": "01fccff30f1ea44408a7014e28ecd365bd90899d5da7de9e41112dbe4b295f41"
+    },
+    "07-pauses.output.bin": {
+      "sha256": "7755df401e0d5fc2b0bed83f30db6a673c0a5f6016af61615232f1e61301ce3f"
+    },
+    "web-continuous.output.bin": {
+      "sha256": "51f57fb9a83df9185a09a2753c27483d00bf2272ffc4410084c0340a50f9b531"
+    },
+    "web-identity-firmware.output.bin": {
+      "sha256": "479735d22a4819d447002adf121dd5f00ef6a1a782d63009ac60df132f565920"
+    },
+    "web-identity.output.bin": {
+      "sha256": "c8a07a6cd2f452aea7399a7af42c271e83b67711ba16118c172bdf89e2684932"
+    },
+    "web-pauses.output.bin": {
+      "sha256": "ad8e7b761659710320058a5e553b1f8ccae907c259e420eb07d911c1ea8f6d32"
+    },
+    "web.input.bin": {
+      "sha256": "a6b47b7b5c7f72668ac9413d487969d89252d6d5228dfbc0f2d2623ba1d97a37"
+    }
+  },
+  "source": "Synthetic regression fixtures captured from the predecessor implementation before the initial Fittools import."
+}

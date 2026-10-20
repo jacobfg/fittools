@@ -1,0 +1,65 @@
+{
+  "inspection": {
+    "inspect-identity": {
+      "firmware": "6.38",
+      "manufacturer": 1,
+      "product": 4953,
+      "serial": 100000001
+    },
+    "activity-details": {
+      "activity": {
+        "distance_metres": 1234.5,
+        "elapsed_seconds": 30.0,
+        "sport": "Running",
+        "sub_sport": "Generic",
+        "timer_seconds": 30.0
+      },
+      "device": {
+        "firmware": "6.38",
+        "manufacturer": {
+          "name": "Garmin",
+          "number": 1
+        },
+        "name": "Garmin Fenix 9 Pro 47mm",
+        "product": {
+          "name": "Fenix 9 Pro 47mm",
+          "number": 4953
+        },
+        "serial": 100000001
+      }
+    }
+  },
+  "transformations": [
+    {
+      "fields": {
+        "action": "pauses"
+      },
+      "output": "web-pauses.output.bin"
+    },
+    {
+      "fields": {
+        "action": "continuous"
+      },
+      "output": "web-continuous.output.bin"
+    },
+    {
+      "fields": {
+        "action": "identity",
+        "manufacturer": "1",
+        "product": "4315",
+        "serial": "100000002"
+      },
+      "output": "web-identity.output.bin"
+    },
+    {
+      "fields": {
+        "action": "identity",
+        "manufacturer": "1",
+        "product": "4315",
+        "serial": "100000002",
+        "firmware": "28.05"
+      },
+      "output": "web-identity-firmware.output.bin"
+    }
+  ]
+}
