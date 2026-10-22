@@ -38,6 +38,10 @@ Open <http://127.0.0.1:8080>. The Dockerfile builds the frontend in a Node stage
 compiles a static Go executable in another, and copies it into a `scratch` image.
 The runtime runs as UID/GID 10001 and has a writable `/tmp`; no shell or package
 manager is included. `/fittools healthcheck` checks `/healthz` without curl.
+
+External health monitors can use `GET /healthz` or `HEAD /healthz` on port 8080.
+Both return HTTP 200 while the server is running; GET returns `ok` followed by a
+newline. Responses are not cached, and checks remain available during FIT processing.
 Linux ARM64 and AMD64 builds are supported with Docker Buildx:
 
 ```sh
