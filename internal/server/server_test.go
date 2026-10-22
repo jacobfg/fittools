@@ -52,6 +52,38 @@ func testServer(t *testing.T) *Server {
 	s.TempDir = t.TempDir()
 	return s
 }
+func TestHealthz(t *testing.T) {
+	// Health probes must work without static assets or an available processing slot.
+	s := New(nil, 1)
+	s.slots <- struct{}{}
+	for _, tc := range []struct {
+		method string
+		status int
+		body   string
+	}{
+		{http.MethodGet, http.StatusOK, "ok\n"},
+		{http.MethodHead, http.StatusOK, ""},
+		{http.MethodPost, http.StatusMethodNotAllowed, ""},
+	} {
+		t.Run(tc.method, func(t *testing.T) {
+			w := httptest.NewRecorder()
+			s.ServeHTTP(w, httptest.NewRequest(tc.method, "/healthz", nil))
+			if w.Code != tc.status || w.Body.String() != tc.body {
+				t.Fatalf("got status %d, body %q; want %d, %q", w.Code, w.Body.String(), tc.status, tc.body)
+			}
+			if w.Header().Get("Cache-Control") != "no-store" {
+				t.Fatal("health response must not be cached")
+			}
+			if tc.status == http.StatusOK && w.Header().Get("Content-Type") != "text/plain" {
+				t.Fatal("health response must be plain text")
+			}
+			if tc.status == http.StatusMethodNotAllowed && w.Header().Get("Allow") != "GET, HEAD" {
+				t.Fatal("missing allowed methods")
+			}
+		})
+	}
+}
+
 func TestHTTP(t *testing.T) {
 	s := testServer(t)
 	b := fixture(t)

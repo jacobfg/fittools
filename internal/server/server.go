@@ -53,9 +53,17 @@ func (s *Server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		s.servePresets(w, r)
 		return
 	}
-	if r.URL.Path == "/healthz" && r.Method == "GET" {
+	if r.URL.Path == "/healthz" {
+		w.Header().Set("Cache-Control", "no-store")
+		if r.Method != http.MethodGet && r.Method != http.MethodHead {
+			w.Header().Set("Allow", "GET, HEAD")
+			w.WriteHeader(http.StatusMethodNotAllowed)
+			return
+		}
 		w.Header().Set("Content-Type", "text/plain")
-		_, _ = io.WriteString(w, "ok\n")
+		if r.Method == http.MethodGet {
+			_, _ = io.WriteString(w, "ok\n")
+		}
 		return
 	}
 	api := r.URL.Path == "/transform" || r.URL.Path == "/inspect-identity" || r.URL.Path == "/activity-details"
