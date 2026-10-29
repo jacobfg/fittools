@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1
 FROM --platform=$BUILDPLATFORM node:24-alpine AS ui
 WORKDIR /build/web
-COPY web/package.json web/package-lock.json ./
+COPY web/package.json web/package-lock.json web/.npmrc ./
 RUN npm ci
 COPY web/index.html web/tsconfig.json web/vite.config.ts web/device-presets.json ./
 COPY web/src ./src
