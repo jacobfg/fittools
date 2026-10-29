@@ -88,7 +88,7 @@ docker run --rm -p 127.0.0.1:8080:8080 ghcr.io/jacobfg/fittools:0.1.1
 
 ## Local build and development
 
-Requires Go 1.25.0+, Node 24+ with npm, and `just`. Dependencies are locked in
+Requires Go 1.27.3+, Node 24+ with npm, and `just`. Dependencies are locked in
 `web/package-lock.json`; the Go runtime uses only the standard library.
 
 ```sh
