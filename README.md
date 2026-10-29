@@ -243,13 +243,24 @@ Stable minor and patch updates to Go, Go modules (including indirect modules),
 Dockerfile images, and frontend npm packages are grouped into one maintenance
 PR. Renovate updates the README Go requirement, runs `go mod tidy`, and maintains
 `web/package-lock.json`. Existing PRs are refreshed; no updates means no new PR.
-Major upgrades and merging remain manual. GitHub Actions and the pinned Renovate
-action/engine versions are maintained manually.
+Major upgrades appear in the Dependency Dashboard issue and require checkbox
+approval before Renovate creates a PR. Merging remains manual. GitHub Actions
+and the pinned Renovate action/engine versions are maintained manually.
 
 Before running it, add an Actions secret named `RENOVATE_TOKEN` containing a
 dedicated GitHub PAT authorized for `jacobfg/fittools`, with contents and
-pull-request write access and the read permissions required by
+pull-request and Issues write access, and the read permissions required by
 [Renovate](https://docs.renovatebot.com/modules/platform/github/). A fine-grained
 token must explicitly include this repository. The dedicated token allows
 Renovate PRs to trigger CI; do not substitute `GITHUB_TOKEN`. The workflow checks
 repository access before starting. Scheduled runs begin after merge to `main`.
+
+The workflow loads `.github/renovate.json5` only as repository configuration;
+do not also pass it as the action's global `configurationFile`, which duplicates
+custom managers. Branch-update failures are promoted to errors so a rejected
+push fails the Action. The access preflight only confirms repository visibility;
+a successful read does not prove the PAT can push. If logs show a push rejected
+with HTTP 403, verify the PAT's repository selection, Contents read/write and
+Pull requests read/write permissions, and any repository rules. Issues read/write
+is required for the Dependency Dashboard. Update `RENOVATE_TOKEN` if replacing
+the PAT, then rerun the workflow.
