@@ -88,7 +88,7 @@ docker run --rm -p 127.0.0.1:8080:8080 ghcr.io/jacobfg/fittools:0.1.1
 
 ## Local build and development
 
-Requires Go 1.25+, Node 24+ with npm, and `just`. Dependencies are locked in
+Requires Go 1.25.0+, Node 24+ with npm, and `just`. Dependencies are locked in
 `web/package-lock.json`; the Go runtime uses only the standard library.
 
 ```sh
@@ -234,3 +234,22 @@ The benchmark includes a small synthetic activity and a 100,000-added-sample
 workload. It needs no Python, server or private files. For deployments with tight
 memory limits, measure representative activities and set container memory and
 concurrency accordingly.
+
+## Scheduled dependency updates
+
+The Renovate Bot workflow runs daily at 06:04 UTC and supports manual runs with
+optional debug logging. It follows the [container-scheduler setup](https://github.com/jacobfg/container-scheduler/blob/main/.github/workflows/renovatebot.yml).
+Stable minor and patch updates to Go, Go modules (including indirect modules),
+Dockerfile images, and frontend npm packages are grouped into one maintenance
+PR. Renovate updates the README Go requirement, runs `go mod tidy`, and maintains
+`web/package-lock.json`. Existing PRs are refreshed; no updates means no new PR.
+Major upgrades and merging remain manual. GitHub Actions and the pinned Renovate
+action/engine versions are maintained manually.
+
+Before running it, add an Actions secret named `RENOVATE_TOKEN` containing a
+dedicated GitHub PAT authorized for `jacobfg/fittools`, with contents and
+pull-request write access and the read permissions required by
+[Renovate](https://docs.renovatebot.com/modules/platform/github/). A fine-grained
+token must explicitly include this repository. The dedicated token allows
+Renovate PRs to trigger CI; do not substitute `GITHUB_TOKEN`. The workflow checks
+repository access before starting. Scheduled runs begin after merge to `main`.
