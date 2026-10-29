@@ -10,9 +10,9 @@
   },
   "devDependencies": {
     "@garmin/fitsdk": "21.218.0",
-    "@playwright/test": "1.58.1",
-    "@tailwindcss/vite": "4.1.18",
-    "tailwindcss": "4.1.18",
+    "@playwright/test": "1.64.1",
+    "@tailwindcss/vite": "4.3.3",
+    "tailwindcss": "4.3.3",
     "typescript": "7.0.2",
     "vite": "7.3.7"
   }

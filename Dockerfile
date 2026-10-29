@@ -7,7 +7,7 @@ COPY web/index.html web/tsconfig.json web/vite.config.ts web/device-presets.json
 COPY web/src ./src
 RUN npm run build
 
-FROM --platform=$BUILDPLATFORM golang:1.27.1-alpine AS build
+FROM --platform=$BUILDPLATFORM golang:1.27.3-alpine AS build
 ARG TARGETOS=linux
 ARG TARGETARCH
 WORKDIR /build
