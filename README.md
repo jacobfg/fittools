@@ -247,6 +247,12 @@ Major upgrades appear in the Dependency Dashboard issue and require checkbox
 approval before Renovate creates a PR. Merging remains manual. GitHub Actions
 and the pinned Renovate action/engine versions are maintained manually.
 
+Renovate adds `docker.io/` to Dockerfile and Compose images without an explicit
+registry, including namespaced Docker Hub images. Existing registry hosts,
+locally built application and smoke-test images, and `scratch` are preserved.
+Compose image versions remain under manual maintenance. Dockerfile image
+versions continue to follow the application maintenance policy above.
+
 Before running it, add an Actions secret named `RENOVATE_TOKEN` containing a
 dedicated GitHub PAT authorized for `jacobfg/fittools`, with contents and
 pull-request and Issues write access, and the read permissions required by
