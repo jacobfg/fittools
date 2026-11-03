@@ -1,5 +1,5 @@
-# syntax=docker/dockerfile:1
-FROM --platform=$BUILDPLATFORM node:26-alpine AS ui
+# syntax=docker.io/docker/dockerfile:1
+FROM --platform=$BUILDPLATFORM docker.io/node:26-alpine AS ui
 WORKDIR /build/web
 COPY web/package.json web/package-lock.json web/.npmrc ./
 RUN npm ci
@@ -7,7 +7,7 @@ COPY web/index.html web/tsconfig.json web/vite.config.ts web/device-presets.json
 COPY web/src ./src
 RUN npm run build
 
-FROM --platform=$BUILDPLATFORM golang:1.27.3-alpine AS build
+FROM --platform=$BUILDPLATFORM docker.io/golang:1.27.3-alpine AS build
 ARG TARGETOS=linux
 ARG TARGETARCH
 WORKDIR /build
