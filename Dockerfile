@@ -7,7 +7,7 @@ COPY web/index.html web/tsconfig.json web/vite.config.ts web/device-presets.json
 COPY web/src ./src
 RUN npm run build
 
-FROM --platform=$BUILDPLATFORM docker.io/golang:1.27.3-alpine AS build
+FROM --platform=$BUILDPLATFORM docker.io/golang:1.27.4-alpine AS build
 ARG TARGETOS=linux
 ARG TARGETARCH
 WORKDIR /build
