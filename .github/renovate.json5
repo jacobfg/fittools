@@ -146,5 +146,18 @@
       "matchMessage": "/^Error updating branch$/",
       "newLogLevel": "error"
     }
-  ]
+  ],
+  "postUpgradeTasks": {
+    "commands": [
+      "env GOTOOLCHAIN=auto go mod tidy"
+    ],
+    "fileFilters": [
+      "go.mod",
+      "go.sum"
+    ],
+    "executionMode": "branch",
+    "installTools": {
+      "golang": {}
+    }
+  }
 }
