@@ -60,7 +60,7 @@ The UI processes files on the server, not in the browser.
 
 ### Publish a release image
 
-After merging the release changes into `main`, push a stable semantic-version tag
+After merging the release changes into `main`, publish a GitHub Release with a stable semantic-version tag
 without a `v` prefix:
 
 ```sh
@@ -68,9 +68,11 @@ git switch main
 git pull --ff-only
 git tag -a 0.1.1 -m "Release 0.1.1"
 git push origin 0.1.1
+gh release create 0.1.1 --generate-notes
 ```
 
-The publish workflow checks that the tagged commit belongs to `main`, then builds
+Pushing a tag alone does not publish an image. The publish workflow checks that
+the tagged commit belongs to `main`, then builds
 one multi-architecture image for `linux/amd64` and `linux/arm64` and publishes:
 
 - `ghcr.io/jacobfg/fittools:0.1.1`
@@ -270,3 +272,10 @@ with HTTP 403, verify the PAT's repository selection, Contents read/write and
 Pull requests read/write permissions, and any repository rules. Issues read/write
 is required for the Dependency Dashboard. Update `RENOVATE_TOKEN` if replacing
 the PAT, then rerun the workflow.
+
+
+For Go updates, Renovate installs a compatible Go binary and runs
+`env GOTOOLCHAIN=auto go mod tidy` once per update branch, committing `go.mod` and
+`go.sum` together. The command is explicitly allowlisted in the self-hosted
+workflow. CI runs tidy using the Go release declared in `go.mod` and rejects stale
+module files. An unchanged checksum file needs no artificial update.
